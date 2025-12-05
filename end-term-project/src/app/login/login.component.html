@@ -1,0 +1,106 @@
+<div class="login-container">
+    <div class="login-card">
+      <h2>{{ isLoginMode ? 'Login Form' : 'Registration Form' }}</h2>
+      
+      <!-- Login Form -->
+      <form *ngIf="isLoginMode" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="loginEmail">Email:</label>
+          <input
+            type="email"
+            id="loginEmail"
+            [(ngModel)]="loginData.email"
+            name="loginEmail"
+            placeholder="Enter email"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="loginPassword">Password:</label>
+          <input
+            type="password"
+            id="loginPassword"
+            [(ngModel)]="loginData.password"
+            name="loginPassword"
+            placeholder="Enter password"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <button type="submit" class="submit-btn">
+          Login
+        </button>
+      </form>
+  
+      <form *ngIf="!isLoginMode" (ngSubmit)="onRegisterSubmit()" #registerForm="ngForm">
+        <div class="form-group">
+          <label for="registerName">Name:</label>
+          <input
+            type="text"
+            id="registerName"
+            [(ngModel)]="registerData.name"
+            name="registerName"
+            placeholder="Enter your name"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="registerEmail">Email:</label>
+          <input
+            type="email"
+            id="registerEmail"
+            [(ngModel)]="registerData.email"
+            name="registerEmail"
+            placeholder="Enter email"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="registerPassword">Password:</label>
+          <input
+            type="password"
+            id="registerPassword"
+            [(ngModel)]="registerData.password"
+            name="registerPassword"
+            placeholder="Enter password"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <div class="form-group">
+          <label for="registerConfirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="registerConfirmPassword"
+            [(ngModel)]="registerData.confirmPassword"
+            name="registerConfirmPassword"
+            placeholder="Repeat password"
+            required
+            class="form-input"
+          >
+        </div>
+  
+        <button type="submit" class="submit-btn">
+          Register
+        </button>
+      </form>
+  
+      <div class="switch-mode">
+        <p>
+          {{ isLoginMode ? 'No account?' : 'Already have an account?' }}
+          <button type="button" (click)="switchMode()" class="switch-btn">
+            {{ isLoginMode ? 'Register' : 'Login' }}
+          </button>
+        </p>
+      </div>
+
+    </div>
+  </div>

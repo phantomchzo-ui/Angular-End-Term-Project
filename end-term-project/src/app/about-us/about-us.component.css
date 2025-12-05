@@ -1,0 +1,200 @@
+/* Общие стили */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about-us-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 50px 20px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #bbbbbb;
+}
+
+
+.team {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.interactive-section p {
+  color:white;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.submission-message ul{
+  align-items: center;
+  color: white;
+}
+.like-btn {
+  margin-right: auto;
+}
+
+.toggle-ages-btn {
+  margin-left: auto; /* прижимает к правому краю */
+}
+
+.team h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.member {
+  background: #1e1e1e;
+  padding: 45px 50px;
+  border-radius: 15px;
+  width: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.member img {
+  border-radius: 50%;
+  margin-bottom: 12px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid #ff0000;
+}
+
+.member h3 {
+  margin: 8px 0;
+  font-size: 1.2rem;
+  color: #ff0000;
+}
+
+.member p {
+  margin: 0;
+  font-size: 1rem;
+  color: #cccccc;
+}
+
+/* Миссия */
+.mission-text {
+  background: #121212;
+  padding: 30px 20px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+}
+
+.mission-text h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.mission-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: white;
+}
+
+.contact {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #121212;
+  border-radius: 10px;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.contact p {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 12px;
+  background-color: #333333;
+  border: 1px solid #444444;
+  border-radius: 5px;
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  padding: 12px;
+  background-color: #ff0000;
+  border: none;
+  border-radius:5px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e60000;
+}
+
+.contact-info {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.contact-info p {
+  margin: 10px 0;
+  color: white;
+}
+
+.contact-info a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  color: #0d47a1;
+}

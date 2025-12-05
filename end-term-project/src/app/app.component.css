@@ -1,0 +1,7 @@
+.login-link {
+  color: orange;
+  font-weight: bold; /* можно добавить жирный шрифт */
+}
+.login-link:hover {
+  color: darkorange; /* эффект при наведении */
+}

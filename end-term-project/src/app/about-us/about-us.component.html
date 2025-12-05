@@ -1,0 +1,134 @@
+<div class="about-us-container">
+  <header class="hero">
+    <h1>{{ pageTitle }}</h1>
+    <h2>{{ aboutCompany }}</h2>
+  </header>
+
+  <section class="interactive-section">
+    <div class="stats">
+      <p>Counter: {{ likes }} likes</p>
+      <div class="buttons-container">
+        <button
+          (click)="onLike()"
+          class="like-btn"
+        >
+          Like Our Team
+        </button>
+
+        <button
+          (click)="toggleAges()"
+          class="toggle-ages-btn"
+        >
+          {{ isAgesVisible ? 'Hide Ages' : 'Show Ages' }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Наша команда -->
+  <section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+
+      <div class="member">
+        <img src="images/nazarbaev.webp" alt="Nazarbaev Nursultan" [class.highlighted]="likes >= 3">
+        <h3>Nazarbaev Nursultan</h3>
+        <p>Frontend Developer</p>
+        <div *ngIf="isAgesVisible" class="member-age">
+          <p>Age: {{ teamMembers[0].age }}</p>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="images/putin.jpeg" alt="Putin Vladimir" [class.highlighted]="likes >= 3">
+        <h3>Vladimir Putin</h3>
+        <p>UI/UX Designer</p>
+        <div *ngIf="isAgesVisible" class="member-age">
+          <p>Age: {{ teamMembers[1].age }}</p>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="images/trump.jpeg" alt="Donald Trump" [class.highlighted]="likes >= 3">
+        <h3>Donald Trump</h3>
+        <p>Backend Developer</p>
+        <div *ngIf="isAgesVisible" class="member-age">
+          <p><strong>Age: {{ teamMembers[2].age }}</strong></p>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="images/lukachenko.jpeg" alt="Aleksandr Lukashenko" [class.highlighted]="likes >= 3">
+        <h3>Aleksandr Lukashenko</h3>
+        <p>Devops Developer</p>
+        <div *ngIf="isAgesVisible" class="member-age">
+          <p><strong>Age: {{ teamMembers[3].age }}</strong></p>
+        </div>
+      </div>
+
+      <div class="member">
+        <img src="images/Kim.jpeg" alt="Kim Jong Un" [class.highlighted]="likes >= 3">
+        <h3>Kim Jong Un</h3>
+        <p>Product Manager</p>
+        <div *ngIf="isAgesVisible" class="member-age">
+          <p>Age: {{ teamMembers[4].age }}</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Talk with Our Team</h2>
+    <p>If you have some issues you can write it here.</p>
+
+    <div *ngIf="visitorName" class="greeting-preview">
+      <p>Hello, <strong>{{ visitorName }}</strong>! 👋 We'll get back to you soon.</p>
+    </div>
+
+    <form (ngSubmit)="onSubmitForm()">
+      <input
+        type="text"
+        placeholder="your name"
+        [(ngModel)]="visitorName"
+        name="visitorName"
+        required
+      >
+
+      <input
+        type="email"
+        placeholder="your email"
+        [(ngModel)]="visitorEmail"
+        name="visitorEmail"
+        required
+      >
+
+      <textarea
+        placeholder="your message"
+        [(ngModel)]="visitorMessage"
+        name="visitorMessage"
+        required
+      ></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div *ngIf="formSubmitted" class="submission-message">
+      <h2>✅ Thank you for your message!</h2>
+      <p>We received your details:</p>
+      <ul>
+        <li>Name: {{ visitorName }}</li>
+        <li>Email: {{ visitorEmail }}</li>
+        <li>Message: {{ visitorMessage }}</li>
+      </ul>
+      <p>We'll contact you within 24 hours.</p>
+    </div>
+  </section>
+
+  <div class="contact-info">
+    <p>📍 Astana Syganak 23A </p>
+    <p>📞+8 (800) 555-3555 </p>
+    <p>📧 contact: ourstore.com</p>
+  </div>
+
+</div>

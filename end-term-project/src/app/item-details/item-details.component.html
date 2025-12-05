@@ -1,0 +1,16 @@
+<div *ngIf="isLoading" class="loading">
+  Loading item details...
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="item && !isLoading" class="item-details-container">
+  <button (click)="goBack()">← Back</button>
+  <h2>{{ item.title }}</h2>
+  <img [src]="item.image" [alt]="item.title">
+  <p class="category">{{ item.category }}</p>
+  <p>{{ item.description }}</p>
+  <p class="price">{{ item.price }}</p>
+</div>
