@@ -1,3 +1,5 @@
+// src/app/app.config.ts (ОБНОВЛЕННЫЙ КОД)
+
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -7,14 +9,23 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environments';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+// 🚨 ИМПОРТ: Добавляем провайдеры для Firebase Storage
+import { provideStorage, getStorage } from '@angular/fire/storage';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     importProvidersFrom(RouterModule),
     provideHttpClient(),
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+
+
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+
+
+    provideStorage(() => getStorage()),
   ]
 };

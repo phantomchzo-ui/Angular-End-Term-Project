@@ -7,10 +7,34 @@
 </div>
 
 <div *ngIf="item && !isLoading" class="item-details-container">
+
   <button (click)="goBack()">← Back</button>
+
   <h2>{{ item.title }}</h2>
-  <img [src]="item.image" [alt]="item.title">
-  <p class="category">{{ item.category }}</p>
-  <p>{{ item.description }}</p>
-  <p class="price">{{ item.price }}</p>
+
+  <img [src]="item.image" [alt]="item.title" class="item-detail-image">
+
+  <div class="details-info">
+
+    <p class="price-tag">Price: <strong>{{ item.price | currency:'USD' }}</strong></p>
+
+    <p class="category">Category: <span>{{ item.category }}</span></p>
+
+    <hr>
+
+    <p class="rating-value">
+      ★ Rating: <strong>{{ item.rating.rate }} / 5</strong>
+    </p>
+
+    <p class="review-count">
+      Reviews: <strong>{{ item.rating.count }}</strong>
+    </p>
+
+    <h3>Product Description:</h3>
+
+    <p class="item-description">{{ item.description }}</p>
+
+    <p class="item-id">Product ID: #{{ item.id }}</p>
+
+  </div>
 </div>

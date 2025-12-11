@@ -3,50 +3,108 @@
     <h1>Online Shop</h1>
   </header>
 
+  <!-- 🔍 ПОИСК -->
   <div class="search-container">
     <div class="search-box">
       <input
         type="text"
         [(ngModel)]="searchTerm"
-        (input)="searchItems()"
+        (input)="onSearchInput(searchTerm)"
         placeholder="Search item"
         class="search-input"
       >
-      <button
-        *ngIf="searchTerm"
-        (click)="clearSearch()"
-        class="clear-btn"
-        title="Очистить поиск"
-      >
-        ✕
-      </button>
-    </div>
-
-    <div *ngIf="searchTerm" class="search-info">
-      🔍 Найдено товаров: {{ items.length }}
+      <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-btn">✕</button>
     </div>
   </div>
 
-  <div *ngIf="isLoading" class="loading">
-    ⏳ Загрузка товаров...
+  <!-- 🎛 ФИЛЬТРЫ -->
+  <div class="filters">
+
+    <!-- Категория -->
+    <div class="filter-block">
+      <label>Категория:</label>
+      <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
+        <option value="">Все категории</option>
+        <option *ngFor="let item of items" [value]="item.category">
+          {{ item.category }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Цена MIN -->
+    <div class="filter-block">
+      <label>Цена от:</label>
+      <input
+        type="number"
+        [(ngModel)]="minPrice"
+        (input)="applyFilters()"
+        class="filter-input"
+      />
+    </div>
+
+    <!-- Цена MAX -->
+    <div class="filter-block">
+      <label>Цена до:</label>
+      <input
+        type="number"
+        [(ngModel)]="maxPrice"
+        (input)="applyFilters()"
+        class="filter-input"
+      />
+    </div>
+
+    <!-- Количество товаров на странице -->
+    <div class="filter-block">
+      <label>Показывать:</label>
+      <select [(ngModel)]="limit" (change)="applyFilters()" class="filter-select">
+        <option [value]="6">6</option>
+        <option [value]="12">12</option>
+        <option [value]="24">24</option>
+      </select>
+    </div>
+
   </div>
 
+  <!-- 🔄 ЛОАДЕР -->
+  <div *ngIf="isLoading" class="loading">⏳ Загрузка...</div>
+
+  <!-- ❌ ОШИБКА -->
   <div *ngIf="errorMessage" class="error-message">
-    ❌ {{ errorMessage }}
+    {{ errorMessage }}
   </div>
 
-  <div *ngIf="items.length === 0 && !isLoading && !errorMessage" class="no-results">
-    <p>😔 Товары не найдены. Попробуйте изменить поисковый запрос.</p>
-  </div>
-
+  <!-- 🛒 СПИСОК ТОВАРОВ -->
   <div class="item-list">
-    <div *ngFor="let item of items" class="item-card" [routerLink]="['/items', item.id]">
+    <div *ngFor="let item of filteredItems" class="item-card" [routerLink]="['/items', item.id]">
       <img [src]="item.image" [alt]="item.title">
       <h3>{{ item.title }}</h3>
       <p class="item-category">{{ item.category }}</p>
       <p class="item-description">{{ item.description }}</p>
       <p class="price">{{ item.price | currency:'USD' }}</p>
     </div>
+  </div>
+
+  <!-- 📄 ПАГИНАЦИЯ -->
+  <div class="pagination">
+
+    <button
+      [disabled]="page <= 1"
+      (click)="prevPage()"
+      class="page-btn">
+      ⬅ Назад
+    </button>
+
+    <span class="page-number">
+      Страница: {{ page }}
+    </span>
+
+    <button
+      [disabled]="filteredItems.length < limit"
+      (click)="nextPage()"
+      class="page-btn">
+      Вперёд ➡
+    </button>
+
   </div>
 
 </div>

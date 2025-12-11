@@ -5,3 +5,23 @@
 .login-link:hover {
   color: darkorange; /* эффект при наведении */
 }
+
+/* src/app/app.component.css */
+
+.navbar ul {
+  display: flex; /* Обеспечивает выравнивание элементов списка */
+  align-items: center; /* Центрирует элементы по вертикали */
+}
+
+.avatar-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Делает изображение круглым */
+  object-fit: cover;
+  border: 2px solid #ff0000; /* Красная обводка */
+}
+
+/* Стили для ссылки на профиль, чтобы обеспечить хороший отступ */
+.profile-link a {
+  padding: 8px 12px;
+}

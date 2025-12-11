@@ -13,12 +13,31 @@
     <li routerLinkActive="active">
       <a [routerLink]="['/about']">About us</a>
     </li>
-    <li routerLinkActive="active" *ngIf="(user$ | async) === null">
-      <a [routerLink]="['/login']">Login</a>
+
+    <li routerLinkActive="active" class="profile-link">
+      <a [routerLink]="['/profile']" style="display: flex; align-items: center; gap: 8px;">
+
+        <ng-container *ngIf="(user$ | async) !== null; else loginLink">
+          <img
+            [src]="(profileImageUrl$ | async) || 'https://via.placeholder.com/30/ff0000/ffffff?text=U'"
+            alt="Avatar"
+            class="avatar-icon"
+            loading="lazy"
+          >
+          <span>{{ (userName$ | async) || 'Профиль' }}</span>
+        </ng-container>
+
+        <ng-template #loginLink>
+          <span>Profile / Login</span>
+        </ng-template>
+
+      </a>
     </li>
+
     <li *ngIf="(user$ | async) !== null">
       <a (click)="onLogout()" style="cursor: pointer;">Logout</a>
     </li>
+
   </ul>
 
 </nav>

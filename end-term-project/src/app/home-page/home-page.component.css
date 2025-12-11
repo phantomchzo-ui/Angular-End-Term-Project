@@ -1,0 +1,263 @@
+/* =======================================
+   ОСНОВНЫЕ СТИЛИ КОМПОНЕНТА HOME-PAGE
+   ======================================= */
+body {
+  /* Защита от наследования общих стилей, если они есть */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Главный контейнер (main-container) */
+.main-container {
+  padding: 20px;
+  background: #121212; /* Темный фон */
+  min-height: calc(100vh - 80px); /* Вычисляем высоту за вычетом шапки (если она 80px) */
+  max-width: 1400px; /* Ограничиваем ширину контента */
+  margin: 0 auto;
+  color: #e0e0e0;
+}
+
+/* =======================================
+   СЕКЦИЯ HERO (ПРИВЕТСТВИЕ)
+   ======================================= */
+.hero {
+  text-align: center;
+  background-color: #1e1e1e; /* Чуть светлее, чем основной фон */
+  color: #ffffff;
+  padding: 50px 20px;
+  border-radius: 15px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.1);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 15px;
+  color: #ff0000; /* Яркий акцент */
+  text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #bbbbbb;
+  margin-bottom: 30px;
+}
+
+/* =======================================
+   СТИЛИ ДЛЯ КНОПОК
+   ======================================= */
+.submit-btn {
+  background: linear-gradient(90deg, #ff0000, #990000);
+  color: #ffffff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none; /* Для использования как <a> */
+  display: inline-block;
+}
+
+.submit-btn:hover {
+  background: linear-gradient(90deg, #ff3333, #cc0000);
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+
+/* =======================================
+   СЕКЦИЯ ПОИСКА
+   ======================================= */
+.search-container {
+  margin-bottom: 50px;
+  padding: 25px;
+  background: #1e1e1e;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+  border: 1px solid #333;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 15px 100px 15px 20px; /* Отступ для кнопки "Найти" */
+  border: 2px solid #333;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #121212;
+  color: #e0e0e0;
+}
+
+.search-input:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+}
+
+/* =======================================
+   СПИСОК ТОВАРОВ (ТОП ПРОДАЖ)
+   ======================================= */
+
+/* Оформление заголовков секций */
+.header h2 {
+  color: #ff0000 !important;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+
+.item-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 0;
+}
+
+/* Карточка товара (item-card) */
+.item-card {
+  background: #1e1e1e;
+  border-radius: 15px;
+  width: 280px;
+  padding: 20px;
+  color: #e0e0e0;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 480px; /* Увеличил, чтобы вместить весь контент */
+}
+
+.item-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.35);
+  border-color: #ff0000;
+}
+
+.item-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 10px;
+  background-color: #121212;
+  margin-bottom: 15px;
+  padding: 10px;
+  flex-shrink: 0;
+}
+
+.item-card h3 {
+  color: #ff0000;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-card .item-category {
+  color: #ff6666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.item-card .item-description {
+  font-size: 0.95rem;
+  color: #cccccc;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-card .price {
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 1.3rem;
+  background: linear-gradient(90deg, #ff0000, #990000);
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 10px 0;
+  flex-shrink: 0;
+}
+
+.rating {
+  font-size: 0.8rem;
+  color: #ff9999;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* =======================================
+   СЕКЦИЯ ПРОМО-БАННЕР (.mission-text)
+   ======================================= */
+.mission-text {
+  background: #1e1e1e;
+  padding: 30px;
+  border-radius: 15px;
+  margin-top: 50px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+}
+
+.mission-text h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #ff0000 !important;
+}
+
+.mission-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #cccccc;
+}
+
+.mission-text a {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+  .item-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .item-list {
+    gap: 20px;
+  }
+  .item-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+  .search-input {
+    padding-right: 80px;
+  }
+}

@@ -1,34 +1,43 @@
-// src/app/app.component.ts
-
 import { Component, inject } from '@angular/core';
-import { RouterModule, Router } from '@angular/router'; // Добавляем Router
-import { CommonModule } from '@angular/common'; // Добавляем CommonModule для *ngIf
-import { AuthService } from './services/auth.service'; // Импортируем AuthService
-import { Observable } from 'rxjs';
+import { RouterModule, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
+import { ProfileService } from './services/profile.service';
+import { Observable, of } from 'rxjs';
 import { User } from '@angular/fire/auth';
+import { switchMap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  // 🚨 ОБНОВЛЕНИЕ: добавляем CommonModule для использования *ngIf и *ngFor
   imports: [RouterModule, CommonModule]
 })
 export class AppComponent {
-  private authService = inject(AuthService); // Инжектируем AuthService
-  private router = inject(Router); // Инжектируем Router
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private profileService = inject(ProfileService);
 
-  // Observable, который отслеживает состояние авторизации (User или null)
   user$: Observable<User | null> = this.authService.authState$;
 
-  /**
-   * Метод для выхода пользователя.
-   */
+  profileImageUrl$: Observable<string | null> = this.user$.pipe(
+    // Фильтруем, чтобы обрабатывать только авторизованных пользователей (user !== null)
+    filter((user): user is User => !!user),
+    // Как только есть User, переключаемся на запрос URL из ProfileService
+    switchMap(user => this.profileService.getProfileImageUrl(user.uid)),
+    // Если пользователь не авторизован, можно вернуть пустой Observable (или of(null)
+    // Но filter уже позаботился об этом, поэтому здесь будет только URL или null/undefined
+  );
+
+  // Дополнительно: Observable для имени пользователя
+  userName$: Observable<string | null> = this.user$.pipe(
+    switchMap(user => of(user?.displayName || user?.email || null))
+  );
+
   async onLogout() {
     try {
       await this.authService.logout();
-      // После выхода перенаправляем на страницу входа
       this.router.navigate(['/login']);
     } catch (err) {
       console.error('Ошибка при выходе:', err);

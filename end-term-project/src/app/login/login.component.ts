@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private authService = inject(AuthService); // ✅ вместо constructor
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   isLoginMode = true;
