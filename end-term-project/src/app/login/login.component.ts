@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,40 +12,68 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  isLoginMode = true; 
-  
-  loginData = {
-    email: '',
-    password: ''
-  };
-  
-  registerData = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  };
+  private authService = inject(AuthService); // ✅ вместо constructor
+  private router = inject(Router);
+
+  isLoginMode = true;
+
+  loginData = { email: '', password: '' };
+  registerData = { name: '', email: '', password: '', confirmPassword: '' };
+
+  errorMsg = '';
+  loading = false;
 
   switchMode() {
     this.isLoginMode = !this.isLoginMode;
-    console.log('Переключен режим на:', this.isLoginMode ? 'ЛОГИН' : 'РЕГИСТРАЦИЯ');
+    this.errorMsg = '';
   }
 
+  private isPasswordStrong(password: string): boolean {
+    const re = /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+    return re.test(password);
+  }
 
-  // В компоненте обновите console.log сообщения:
-onLoginSubmit() {
-  console.log('=== LOGIN DATA ===');
-  console.log('Email:', this.loginData.email);
-  console.log('Password:', this.loginData.password);
-  console.log('==================');
-}
+  async onLoginSubmit() {
+    this.errorMsg = '';
+    this.loading = true;
+    try {
+      await this.authService.login(this.loginData.email, this.loginData.password);
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      this.errorMsg = err?.message || 'Login error';
+    } finally {
+      this.loading = false;
+    }
+  }
 
-onRegisterSubmit() {
-  console.log('=== REGISTRATION DATA ===');
-  console.log('Name:', this.registerData.name);
-  console.log('Email:', this.registerData.email);
-  console.log('Password:', this.registerData.password);
-  console.log('Confirm Password:', this.registerData.confirmPassword);
-  console.log('=========================');
-}
+  async onRegisterSubmit() {
+    this.errorMsg = '';
+
+    if (!this.registerData.name?.trim()) {
+      this.errorMsg = 'Введите имя';
+      return;
+    }
+    if (!this.registerData.email?.includes('@')) {
+      this.errorMsg = 'Введите корректный email';
+      return;
+    }
+    if (this.registerData.password !== this.registerData.confirmPassword) {
+      this.errorMsg = 'Пароли не совпадают';
+      return;
+    }
+    if (!this.isPasswordStrong(this.registerData.password)) {
+      this.errorMsg = 'Пароль должен быть минимум 8 символов, содержать хотя бы одну цифру и один спец. символ';
+      return;
+    }
+
+    this.loading = true;
+    try {
+      await this.authService.register(this.registerData.name, this.registerData.email, this.registerData.password);
+      this.router.navigate(['/home']);
+    } catch (err: any) {
+      this.errorMsg = err?.message || 'Registration error';
+    } finally {
+      this.loading = false;
+    }
+  }
 }

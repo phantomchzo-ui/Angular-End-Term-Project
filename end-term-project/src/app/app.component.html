@@ -11,13 +11,13 @@
       <a [routerLink]="['/items']">items</a>
     </li>
     <li routerLinkActive="active">
-      <a [routerLink]="['/items/id']">items/id</a>
-    </li>
-    <li routerLinkActive="active">
       <a [routerLink]="['/about']">About us</a>
     </li>
-    <li routerLinkActive="active">
+    <li routerLinkActive="active" *ngIf="(user$ | async) === null">
       <a [routerLink]="['/login']">Login</a>
+    </li>
+    <li *ngIf="(user$ | async) !== null">
+      <a (click)="onLogout()" style="cursor: pointer;">Logout</a>
     </li>
   </ul>
 

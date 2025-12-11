@@ -1,20 +1,34 @@
-import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, authState } from '@angular/fire/auth';
+import { Injectable, inject } from '@angular/core';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User } from '@angular/fire/auth';
+import { Firestore, doc, setDoc, serverTimestamp } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
+  private auth = inject(Auth);       // ✅ inject вместо конструктора
+  private firestore = inject(Firestore);
 
-  user$: Observable<any>;
+  public authState$: Observable<User | null> = authState(this.auth);
 
-  constructor(private auth: Auth) {
-    this.user$ = authState(this.auth);
-  }
+  async register(name: string, email: string, password: string) {
+    // Ждём, пока Auth будет готов
+    if (!this.auth.app) throw new Error('Firebase Auth не инициализирован');
 
-  register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    const credential = await createUserWithEmailAndPassword(this.auth, email, password);
+
+    if (credential.user) {
+      await updateProfile(credential.user, { displayName: name });
+
+      const userRef = doc(this.firestore, `users/${credential.user.uid}`);
+      await setDoc(userRef, {
+        uid: credential.user.uid,
+        name,
+        email,
+        createdAt: serverTimestamp()
+      });
+    }
+
+    return credential;
   }
 
   login(email: string, password: string) {
