@@ -17,7 +17,8 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'favorites', component: FavoritesComponent },
+  { path: 'favorites', component: FavoritesComponent
+  },
   {
     path: 'home',
     component: HomePageComponent,
