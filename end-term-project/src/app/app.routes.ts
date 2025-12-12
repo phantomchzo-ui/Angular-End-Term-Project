@@ -8,35 +8,34 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ProfileComponent } from './profile/profile.component';
 import { authGuard } from './guards/auth.guard'; // Ваш функциональный Guard
+import { FavoritesComponent } from './favorites/favorites.component';
 
 
 export const routes: Routes = [
 
-  // 1. Корень ведет на незащищенную Home (главную витрину)
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-  // 2. Страницы без защиты
   { path: 'login', component: LoginComponent },
+
+  { path: 'favorites', component: FavoritesComponent },
   {
     path: 'home',
     component: HomePageComponent,
-    // 💡 УБРАН Guard: Доступно всем
   },
   {
     path: 'items',
-    component: ItemComponent, // 💡 ДОБАВЛЕНА СТРАНИЦА СПИСКА ТОВАРОВ
-    // Guard убран, чтобы неавторизованные могли видеть каталог
+    component: ItemComponent,
   },
   { path: 'about', component: AboutUsComponent },
   { path: 'items/:id', component: ItemDetailsComponent },
 
-  // 3. 🛡️ ЗАЩИЩЕННЫЙ МАРШРУТ
+
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [authGuard] // 🔒 Доступ только авторизованным
+    canActivate: [authGuard]
   },
 
-  // 4. Опциональный редирект для несуществующих URL
+
   { path: '**', redirectTo: '/home' }
 ];

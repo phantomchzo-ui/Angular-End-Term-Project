@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ItemService } from '../services/item.service';
 import { Item } from '../models/item.model';
 import { Location } from '@angular/common';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-item-details',
@@ -15,11 +16,13 @@ export class ItemDetailsComponent implements OnInit {
   item!: Item;
   isLoading = true;
   errorMessage = '';
+  isFavorite = false;
 
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
-    private location: Location
+    private location: Location,
+    private favoritesService: FavoritesService
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +32,7 @@ export class ItemDetailsComponent implements OnInit {
         next: (data) => {
           this.item = data;
           this.isLoading = false;
+          this.isFavorite = this.favoritesService.exists(this.item.id);
         },
         error: (err) => {
           this.errorMessage = 'Failed to load item.';
@@ -41,5 +45,16 @@ export class ItemDetailsComponent implements OnInit {
   goBack(): void {
     this.location.back(); // кнопка "Назад"
   }
+
+  toggleFavorite() {
+    if (this.isFavorite) {
+      this.favoritesService.remove(this.item.id);
+    } else {
+      this.favoritesService.add(this.item);
+    }
+
+    this.isFavorite = !this.isFavorite;
+  }
+
 }
 

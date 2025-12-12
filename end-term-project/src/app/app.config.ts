@@ -1,6 +1,6 @@
 // src/app/app.config.ts (ОБНОВЛЕННЫЙ КОД)
 
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
@@ -11,6 +11,7 @@ import { environment } from '../environments/environments';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 // 🚨 ИМПОРТ: Добавляем провайдеры для Firebase Storage
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideServiceWorker } from '@angular/service-worker';
 
 
 export const appConfig: ApplicationConfig = {
@@ -26,6 +27,12 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
 
 
-    provideStorage(() => getStorage()),
+    provideStorage(() => getStorage()), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
   ]
 };

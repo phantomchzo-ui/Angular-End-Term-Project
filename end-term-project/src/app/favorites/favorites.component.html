@@ -1,0 +1,24 @@
+<h2>Your Favorites</h2>
+
+<div *ngIf="favorites.length === 0" class="empty">
+  <h1>No favorite items yet.</h1>
+</div>
+
+<div *ngFor="let item of favorites" class="fav-card">
+
+  <img [src]="item.image" [alt]="item.title" class="fav-img">
+
+  <div class="fav-info">
+    <h3>{{ item.title }}</h3>
+    <p class="price">{{ item.price | currency:'USD' }}</p>
+
+    <button (click)="removeFavorite(item.id)" class="remove-btn">
+      Remove
+    </button>
+
+    <a [routerLink]="['/items', item.id]" class="details-btn">
+      View Details
+    </a>
+  </div>
+
+</div>

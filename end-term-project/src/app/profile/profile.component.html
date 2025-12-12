@@ -1,0 +1,39 @@
+<div class="profile-container">
+
+  <h2>🛡️ User Profile</h2>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error-msg">{{ error }}</div>
+
+  <div class="profile-card">
+
+    <div class="avatar-display">
+      <img
+        [src]="profileImageUrl || 'images/nazarbaev.webp'"
+        alt="Profile Picture"
+        class="profile-pic"
+      >
+      <p class="user-name">{{ user?.email || 'Гость' }}</p>
+    </div>
+
+    <div class="upload-section">
+      <label
+        for="file-upload"
+        class="upload-label submit-btn"
+        [class.disabled]="loading"
+      >
+        {{ loading ? 'Uploading...' : 'Upload new photo' }}
+      </label>
+      <input
+        id="file-upload"
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/jpeg, image/png"
+        [disabled]="loading"
+        style="display: none;"
+      >
+      <p class="tip">Format .jpg or .png </p>
+    </div>
+
+  </div>
+</div>

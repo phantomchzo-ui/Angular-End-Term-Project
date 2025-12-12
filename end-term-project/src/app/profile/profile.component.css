@@ -1,0 +1,120 @@
+/* Контейнер страницы */
+.profile-container {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Заголовок */
+.profile-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+/* Карточка профиля */
+.profile-card {
+  background: #1f1f1f;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Блок аватара */
+.avatar-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ff3e3e;
+  margin-bottom: 12px;
+  transition: 0.3s;
+  background-color: #111;
+}
+
+.profile-pic:hover {
+  transform: scale(1.03);
+  border-color: #ff6b6b;
+}
+
+/* Имя пользователя */
+.user-name {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+/* Загрузка */
+.loading {
+  color: #ffd447;
+  margin-bottom: 10px;
+}
+
+/* Ошибка */
+.error-msg {
+  color: #ff4b4b;
+  margin-bottom: 15px;
+}
+
+/* Блок загрузки файла */
+.upload-section {
+  margin-top: 18px;
+}
+
+/* Кнопка загрузки */
+.upload-label {
+  background: #ff3e3e;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  display: inline-block;
+  font-size: 15px;
+  user-select: none;
+}
+
+.upload-label:hover {
+  background: #ff5959;
+  transform: translateY(-1px);
+}
+
+.upload-label:active {
+  transform: translateY(1px);
+}
+
+/* Подсказка */
+.tip {
+  font-size: 13px;
+  color: #bbbbbb;
+  margin-top: 8px;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+
+  .upload-label {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+}

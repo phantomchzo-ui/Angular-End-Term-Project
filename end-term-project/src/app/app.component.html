@@ -11,32 +11,43 @@
       <a [routerLink]="['/items']">items</a>
     </li>
     <li routerLinkActive="active">
+      <a [routerLink]="['/favorites']">favorite</a>
+    </li>
+    <li routerLinkActive="active">
       <a [routerLink]="['/about']">About us</a>
     </li>
 
     <li routerLinkActive="active" class="profile-link">
       <a [routerLink]="['/profile']" style="display: flex; align-items: center; gap: 8px;">
 
-        <ng-container *ngIf="(user$ | async) !== null; else loginLink">
+        <ng-container *ngIf="(user$ | async) !== null; else genericProfileLink">
           <img
-            [src]="(profileImageUrl$ | async) || 'https://via.placeholder.com/30/ff0000/ffffff?text=U'"
+            [src]="(profileImageUrl$ | async) || 'images/nazarbaev.webp'"
             alt="Avatar"
             class="avatar-icon"
             loading="lazy"
           >
-          <span>{{ (userName$ | async) || 'Профиль' }}</span>
+          <span>{{ (userName$ | async) || 'Profile' }}</span>
         </ng-container>
 
-        <ng-template #loginLink>
-          <span>Profile / Login</span>
+        <ng-template #genericProfileLink>
+          <span>Profile</span>
         </ng-template>
 
       </a>
     </li>
 
-    <li *ngIf="(user$ | async) !== null">
-      <a (click)="onLogout()" style="cursor: pointer;">Logout</a>
-    </li>
+    <ng-container *ngIf="(user$ | async) !== null; else showLogin">
+      <li>
+        <a (click)="onLogout()" style="cursor: pointer;">Logout</a>
+      </li>
+    </ng-container>
+
+    <ng-template #showLogin>
+      <li routerLinkActive="active">
+        <a [routerLink]="['/login']">Login</a>
+      </li>
+    </ng-template>
 
   </ul>
 

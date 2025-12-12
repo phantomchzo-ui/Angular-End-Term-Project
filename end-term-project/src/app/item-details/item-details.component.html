@@ -18,6 +18,10 @@
 
     <p class="price-tag">Price: <strong>{{ item.price | currency:'USD' }}</strong></p>
 
+    <button (click)="toggleFavorite()" class="fav-btn">
+      {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+    </button>
+
     <p class="category">Category: <span>{{ item.category }}</span></p>
 
     <hr>

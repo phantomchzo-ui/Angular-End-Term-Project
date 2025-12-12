@@ -1,57 +1,47 @@
 <div class="main-container">
 
   <section class="hero">
-    <h1>Добро пожаловать в Online Shop!</h1>
-    <p>Откройте для себя широкий ассортимент товаров, аксессуаров и самые выгодные предложения.</p>
-    <a [routerLink]="['/items']" class="submit-btn" style="display: inline-block; margin-top: 25px;">
-      Перейти в Каталог
+    <h1>Welcome to the Online Shop!</h1>
+    <p>Discover a wide selection of products, accessories and weekly deals.</p>
+    <a [routerLink]="['/items']" class="submit-btn" style="margin-top: 25px;">
+      Go to Catalog
     </a>
   </section>
 
-
   <section>
-    <div class="header" style="background: none; border: none; box-shadow: none;">
-      <h2 style="color: #ff0000; text-align: center; margin-bottom: 20px;">
-        🔥 Топ продаж на этой неделе
-      </h2>
-    </div>
+    <h2 style="text-align:center; color:#ff0000; margin-bottom:20px;">
+      🔥 Bestsellers This Week
+    </h2>
 
-    <div class="item-list">
+    <div *ngIf="isLoading" class="loading">Loading...</div>
 
-      <div class="item-card">
-        <img src="https://via.placeholder.com/260x180/121212/808080?text=Наушники" alt="Игровые наушники">
-        <div class="item-category">Аксессуары</div>
-        <h3>Игровые наушники Nebula X</h3>
+    <div class="item-list" *ngIf="!isLoading">
+
+      <div *ngFor="let item of bestsellers" class="item-card">
+
+        <img [src]="item.image"
+             [alt]="item.title"
+             class="item-image">
+
+        <div class="item-category">{{ item.category | uppercase }}</div>
+
+        <h3>{{ item.title }}</h3>
+
         <p class="item-description">
-          Профессиональные наушники с чистым звуком и активным шумоподавлением.
+          {{ item.description }}
         </p>
-        <div class="rating">⭐⭐⭐⭐⭐ (450 отзывов)</div>
-        <div class="price">15 500 ₸</div>
-        <a [routerLink]="['/items/1']" class="submit-btn" style="margin-top: auto;">Подробнее</a>
-      </div>
 
-      <div class="item-card">
-        <img src="https://via.placeholder.com/260x180/121212/808080?text=Ноутбук" alt="Ультрабук">
-        <div class="item-category">Ноутбуки</div>
-        <h3>Ультрабук Swift Pro</h3>
-        <p class="item-description">
-          Легкий, тонкий и мощный ноутбук для работы и учебы.
-        </p>
-        <div class="rating">⭐⭐⭐⭐ (120 отзывов)</div>
-        <div class="price">250 000 ₸</div>
-        <a [routerLink]="['/items/2']" class="submit-btn" style="margin-top: auto;">Подробнее</a>
-      </div>
+        <div class="rating">
+          ⭐ {{ item.rating.rate }} ({{ item.rating.count }} reviews)
+        </div>
 
-      <div class="item-card">
-        <img src="https://via.placeholder.com/260x180/121212/808080?text=Футболка" alt="Футболка">
-        <div class="item-category">Одежда</div>
-        <h3>Черная футболка 'Code'</h3>
-        <p class="item-description">
-          Хлопковая футболка с минималистичным принтом.
-        </p>
-        <div class="rating">⭐⭐⭐⭐⭐ (890 отзывов)</div>
-        <div class="price">7 990 ₸</div>
-        <a [routerLink]="['/items/3']" class="submit-btn" style="margin-top: auto;">Подробнее</a>
+        <div class="price">
+          {{ item.price }} $
+        </div>
+
+        <a [routerLink]="['/items', item.id]" class="submit-btn">
+          More Details
+        </a>
       </div>
 
     </div>
@@ -59,14 +49,15 @@
 
   <section class="mission-text">
     <h2 style="text-align: center; color: #ff0000;">
-      Посетите наши страницы!
+      Visit Our Pages!
     </h2>
     <p style="text-align: center;">
-      Узнайте больше о нашей команде и ценностях на странице
-      <a [routerLink]="['/about']" style="color: #ff0000; text-decoration: underline;">"О нас"</a>
-      или просмотрите полный ассортимент товаров в
-      <a [routerLink]="['/items']" style="color: #ff0000; text-decoration: underline;">Каталоге</a>.
+      Learn more about our team and values on the
+      <a [routerLink]="['/about']" style="color: #ff0000; text-decoration: underline;">“About Us”</a>
+      page, or explore our full product selection in the
+      <a [routerLink]="['/items']" style="color: #ff0000; text-decoration: underline;">Catalog</a>.
     </p>
   </section>
-
 </div>
+
+

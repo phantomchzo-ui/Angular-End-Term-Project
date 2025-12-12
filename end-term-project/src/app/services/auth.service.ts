@@ -11,7 +11,6 @@ export class AuthService {
   public authState$: Observable<User | null> = authState(this.auth);
 
   async register(name: string, email: string, password: string) {
-    // Ждём, пока Auth будет готов
     if (!this.auth.app) throw new Error('Firebase Auth не инициализирован');
 
     const credential = await createUserWithEmailAndPassword(this.auth, email, password);
